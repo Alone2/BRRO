@@ -21,7 +21,7 @@ public class PlayerChat implements Listener {
 
 			for (Player p : Bukkit.getServer().getOnlinePlayers()) {
 
-				p.sendMessage("<BR " + player.getName() + "> " + "BR!" + message2 + "BR!");
+				p.sendMessage("<BR " + player.getName() + "> " + message2 );
 
 			}
 

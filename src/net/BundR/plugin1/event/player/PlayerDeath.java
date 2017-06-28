@@ -86,7 +86,7 @@ public class PlayerDeath implements Listener {
 
 		
 		p.setWhitelisted(false);
-		p.kickPlayer(ChatColor.DARK_RED + "Du aus " + plugin.getConfig().getString("name") + " ausgeschieden!");
+		p.kickPlayer(ChatColor.DARK_RED + "Du bist aus " + plugin.getConfig().getString("name") + " ausgeschieden!");
 		
 		
 		int alive = 0;
