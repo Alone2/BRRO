@@ -49,18 +49,9 @@ public class Alive implements CommandExecutor {
 			if(plugin.getConfig().getInt("Player" + (i+1) +".alive") == 1) {
 			
 				for (Player p2 : Bukkit.getServer().getOnlinePlayers()) {
-					for (int i2 = 0; i2 < 8; i2++) { 
-						String Config = String.valueOf(plugin.getConfig().getString("Player" + String.valueOf(i + 1) + ".UUID")); 
-						String PlayerUUID = String.valueOf(p2.getUniqueId());
-
-						if (Config.equals(PlayerUUID)) {
-							
-							online = 1;
-							
-							//p2.sendMessage(ChatColor.DARK_PURPLE + "Allah");
-
-						} 
-
+					
+					if (getPlayerConfigId.fromUUID(String.valueOf(p2.getUniqueId()), plugin).equals(String.valueOf(i + 1))) {
+						online = 1;
 					}
 				}
 				

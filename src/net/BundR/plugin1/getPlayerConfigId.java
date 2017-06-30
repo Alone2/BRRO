@@ -2,8 +2,6 @@ package net.BundR.plugin1;
 
 public class getPlayerConfigId {
 	
-	//int bla = fromName("Baum");
-	
 	public static String fromName(String Name, plugin1 pl) {
 		
 		String PlayerId = "BUG";
@@ -26,7 +24,7 @@ public class getPlayerConfigId {
 	
 	public static String fromUUID(String UUID, plugin1 pl) {
 		
-		String PlayerId = "Bug";
+		String PlayerId = "BUG";
 		for (int i = 0; i < 8; i++) { 
 			int e = i + 1; 
 			String Config = String.valueOf(pl.getConfig().getString("Player" + String.valueOf(e) + ".UUID")); 

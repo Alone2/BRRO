@@ -20,8 +20,6 @@ public class Teams  implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender p, Command command, String label, String[] args) {
 		
-		//Player p = (Player) sender;
-		
 		p.sendMessage(ChatColor.DARK_AQUA + "Teams:");
 		p.sendMessage("");
 		
