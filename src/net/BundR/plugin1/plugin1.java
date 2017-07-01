@@ -1,5 +1,7 @@
 package net.BundR.plugin1;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -54,9 +56,9 @@ public class plugin1 extends JavaPlugin {
 		getCommand("build").setExecutor(new build(this));
 		getCommand("zeit").setExecutor(new time(this));
 		getCommand("start").setExecutor(new Start(this));
-		getCommand("alive").setExecutor(new Alive(this));
-		getCommand("team").setExecutor(new Team(this));
-		getCommand("teams").setExecutor(new Teams(this));
+		getCommand("alive").setExecutor(new Alive());
+		getCommand("team").setExecutor(new Team());
+		getCommand("teams").setExecutor(new Teams());
 
 	}
 
@@ -67,7 +69,7 @@ public class plugin1 extends JavaPlugin {
 		pm.registerEvents(new PlayerChat(), this);
 		pm.registerEvents(new PlayerJoin(this), this);
 		pm.registerEvents(new PlayerDeath(this), this);	
-		pm.registerEvents(new PlayerDamage(this), this);
+		pm.registerEvents(new PlayerDamage(), this);
 		pm.registerEvents(new PlayerDamageFromPlayer(this), this);
 
 	}
@@ -77,6 +79,21 @@ public class plugin1 extends JavaPlugin {
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		
+        File specialf = new File(getDataFolder(), "data.yml");
+
+        File specialf2 = new File(getDataFolder(), "player.yml");
+
+        if (!specialf.exists()) {
+            specialf.getParentFile().mkdirs();
+            saveResource("data.yml", false);
+         }
+        
+        if (!specialf2.exists()) {
+            specialf2.getParentFile().mkdirs();
+            saveResource("player.yml", false);
+         }
+		
+         	
 	}
 
 

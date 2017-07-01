@@ -8,9 +8,11 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import net.BundR.plugin1.plugin1;
+import net.BundR.plugin1.specialConfig;
 
 public class build implements CommandExecutor {
 	
@@ -21,6 +23,9 @@ public class build implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		
+		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
 		
 		if(sender.isOp()) {
 		if (!(sender instanceof Player)) {
@@ -34,17 +39,16 @@ public class build implements CommandExecutor {
 		World w = loc.getWorld();
 
 		
-		plugin.getConfig().set("Mitte.X", player.getLocation().getBlockX());
-		plugin.getConfig().set("Mitte.Y", player.getLocation().getBlockY());
-		plugin.getConfig().set("Mitte.Z", player.getLocation().getBlockZ());
-		plugin.saveConfig();
-		
+		cfg2.set("Mitte.X", player.getLocation().getBlockX());
+		cfg2.set("Mitte.Y", player.getLocation().getBlockY());
+		cfg2.set("Mitte.Z", player.getLocation().getBlockZ());
+		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 		
 		
 		Location StandOrtArt = player.getLocation();
 		
-		StandOrtArt.setX(plugin.getConfig().getInt("Mitte.X")  + 0.5);
-		StandOrtArt.setY(plugin.getConfig().getInt("Mitte.Y"));
-		StandOrtArt.setZ(plugin.getConfig().getInt("Mitte.Z") + 0.5);
+		StandOrtArt.setX(cfg2.getInt("Mitte.X")  + 0.5);
+		StandOrtArt.setY(cfg2.getInt("Mitte.Y"));
+		StandOrtArt.setZ(cfg2.getInt("Mitte.Z") + 0.5);
 		
 		player.teleport(StandOrtArt);	
 		
@@ -53,9 +57,9 @@ public class build implements CommandExecutor {
 			
 			Location StandOrtArt2 = player.getLocation();
 			
-			StandOrtArt2.setX(plugin.getConfig().getInt("Mitte.X")  + 0.5);
+			StandOrtArt2.setX(cfg2.getInt("Mitte.X")  + 0.5);
 			StandOrtArt2.setY(i);
-			StandOrtArt2.setZ(plugin.getConfig().getInt("Mitte.Z") + 0.5);
+			StandOrtArt2.setZ(cfg2.getInt("Mitte.Z") + 0.5);
 			
 			if (StandOrtArt2.getBlock().getType() != Material.AIR) {
 				hoehe = i+1;
@@ -64,7 +68,7 @@ public class build implements CommandExecutor {
 			
 		}
 		
-		w.setSpawnLocation(plugin.getConfig().getInt("Mitte.X"), hoehe, plugin.getConfig().getInt("Mitte.Z"));
+		w.setSpawnLocation(cfg2.getInt("Mitte.X"), hoehe, cfg2.getInt("Mitte.Z"));
 		// PlayerSpawnKapsel
 		Material Blockoben = Material.LOG;
 		Material Blockunten = Material.PURPUR_SLAB;
@@ -135,10 +139,10 @@ public class build implements CommandExecutor {
 			Spawnpoint.setY(Spawnpoint.getY());
 			Spawnpoint.setZ(Spawnpoint.getZ() + add);
 			
-			plugin.getConfig().set("Player" + i  + ".spawnpoint.X", Spawnpoint.getX());
-			plugin.getConfig().set("Player" + i  + ".spawnpoint.Y", Spawnpoint.getY());
-			plugin.getConfig().set("Player" + i  + ".spawnpoint.Z", Spawnpoint.getZ());
-			plugin.saveConfig();
+			cfg.set("Player" + i  + ".spawnpoint.X", Spawnpoint.getX());
+			cfg.set("Player" + i  + ".spawnpoint.Y", Spawnpoint.getY());
+			cfg.set("Player" + i  + ".spawnpoint.Z", Spawnpoint.getZ());
+			specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
 			
 			// block2
 			block2.setX(block2.getX() + add2 - 0);
@@ -209,7 +213,8 @@ public class build implements CommandExecutor {
 		w.getWorldBorder().setSize(plugin.getConfig().getInt("defaultWorldborder.groesse"));
 		
 		player.sendMessage("DONE");
-		plugin.getConfig().set("build", 1);
+		cfg2.set("build", 1);
+		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
 		
 	} else {
 		sender.sendMessage(ChatColor.RED + "Du hast die Rechte für diesen Command nicht!");

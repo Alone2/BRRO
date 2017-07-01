@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +15,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import net.BundR.plugin1.getPlayerConfigId;
 import net.BundR.plugin1.plugin1;
+import net.BundR.plugin1.specialConfig;
 
 public class PlayerJoin implements Listener {
 
@@ -32,7 +34,16 @@ public class PlayerJoin implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player p = (Player) event.getPlayer();
+		
+		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		
+		//cfg.set("Test", cfg.getInt("Test") + 1);
+			
+		//specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
+		//specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
 
+		
 		//loc
 		Location loc = p.getLocation();
 		World w = loc.getWorld();
@@ -69,36 +80,37 @@ public class PlayerJoin implements Listener {
 			p.sendMessage(ChatColor.AQUA + "Sende eine Teamanfrage mit: " + ChatColor.DARK_AQUA + "/team [Spielername]");
 			p.sendTitle(ChatColor.AQUA + "Teamanfrage: ",ChatColor.AQUA + "/team [Spielername]", 20, 80, 20);
 			int time = plugin.getConfig().getInt("NormalTime");
-			int WieViele = plugin.getConfig().getInt("WieViele");
+			int WieViele = cfg2.getInt("WieViele");
 			
 				
 			//kein cracked
-			plugin.getConfig().set("Player" + String.valueOf(WieViele + 1) + ".UUID", String.valueOf(p.getUniqueId()));
-			plugin.getConfig().set("Player" + String.valueOf(WieViele + 1) + ".name", String.valueOf(p.getName()));
+			cfg.set("Player" + String.valueOf(WieViele + 1) + ".UUID", String.valueOf(p.getUniqueId()));
+			cfg.set("Player" + String.valueOf(WieViele + 1) + ".name", String.valueOf(p.getName()));
 			
 			
-			plugin.getConfig().set("Player" + String.valueOf(WieViele + 1) + ".alive", 1);
+			cfg.set("Player" + String.valueOf(WieViele + 1) + ".alive", 1);
 			
 
-			plugin.getConfig().set("Player" + String.valueOf(WieViele + 1) + ".time", time);
-			plugin.getConfig().set("WieViele", WieViele + 1);
-			plugin.saveConfig();
+			cfg.set("Player" + String.valueOf(WieViele + 1) + ".time", time);
+			cfg2.set("WieViele", WieViele + 1);
+			specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+			specialConfig.saveConfig(cfg, "plugins//alone1//data.yml");
 			
-			if(plugin.getConfig().getInt("build") == 1) {
+			if(cfg2.getInt("build") == 1) {
 				Location tp = p.getLocation();
-				tp.setX(plugin.getConfig().getDouble("Player"+ String.valueOf(WieViele + 1) + ".spawnpoint.X"));
-				tp.setY(plugin.getConfig().getDouble("Player"+ String.valueOf(WieViele + 1) + ".spawnpoint.Y"));
-				tp.setZ(plugin.getConfig().getDouble("Player"+ String.valueOf(WieViele + 1) + ".spawnpoint.Z"));
+				tp.setX(cfg.getDouble("Player"+ String.valueOf(WieViele + 1) + ".spawnpoint.X"));
+				tp.setY(cfg.getDouble("Player"+ String.valueOf(WieViele + 1) + ".spawnpoint.Y"));
+				tp.setZ(cfg.getDouble("Player"+ String.valueOf(WieViele + 1) + ".spawnpoint.Z"));
 			
 				p.teleport(tp);
 				//p.sendMessage(String.valueOf(tp));
-				}
+			}
 			//p.sendMessage(plugin.getConfig().getString("Player1.UUID"));
 		}
 		
-		int high = plugin.getConfig().getInt("high") + 1;
-		plugin.getConfig().set("high", high);
-		plugin.saveConfig();
+		int high = cfg2.getInt("high") + 1;
+		cfg2.set("high", high);
+		specialConfig.saveConfig(cfg, "plugins//alone1//data.yml");
 		
 		String[] on_p;
 		
@@ -107,11 +119,11 @@ public class PlayerJoin implements Listener {
 		on_p[high] = "0";
 		
 		
-		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()), plugin);
+		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
 		
 		
-		int alive = plugin.getConfig().getInt("Player" + PlayerId + ".alive");
-		int time_p = plugin.getConfig().getInt("Player" + PlayerId + ".time");
+		int alive = cfg.getInt("Player" + PlayerId + ".alive");
+		int time_p = cfg.getInt("Player" + PlayerId + ".time");
 		
 		if (alive == 0) {
 			
@@ -151,8 +163,8 @@ public class PlayerJoin implements Listener {
 			}, (20 * 1L), 20 * 1);
 		}
 		
-		plugin.getConfig().set("Player" + PlayerId + ".name", p.getName());
-		plugin.saveConfig();
+		cfg.set("Player" + PlayerId + ".name", p.getName());
+		specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
 		
 		plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 			@Override
@@ -165,19 +177,19 @@ public class PlayerJoin implements Listener {
 						
 					//normal UUID kein Cracked
 
-					PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()), plugin);
+					PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
 						
 
 					//debug
 					//int HowOnline = Bukkit.getOnlinePlayers().size();
 				
-					if (plugin.getConfig().getInt("start") == 1) {
+					if (cfg2.getInt("start") == 1) {
 						
 						if (p.isOnline()){
 					
-							int time_p = plugin.getConfig().getInt("Player" + PlayerId + ".time");
-							plugin.getConfig().set("Player" + PlayerId + ".time", time_p - 1);
-							plugin.saveConfig();
+							int time_p = cfg.getInt("Player" + PlayerId + ".time");
+							cfg.set("Player" + PlayerId + ".time", time_p - 1);
+							specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
 						
 							if (time_p == 120) {
 								p.sendMessage(ChatColor.RED + "Du hast nur noch 2 Minuten Zeit!");	
@@ -210,11 +222,11 @@ public class PlayerJoin implements Listener {
 								int notkick = 0;
 								for (Player p2 : Bukkit.getServer().getOnlinePlayers()) {
 									
-									if (plugin.getConfig().getInt("Player" + PlayerId + ".team") == 1) {
+									if (cfg.getInt("Player" + PlayerId + ".team") == 1) {
 										
-										String PlayerId2 = plugin.getConfig().getString("Player" + PlayerId + ".teamm8");
+										String PlayerId2 = cfg.getString("Player" + PlayerId + ".teamm8");
 										
-										String teamm8UUID = plugin.getConfig().getString("Player" + PlayerId2 + ".name");
+										String teamm8UUID = cfg.getString("Player" + PlayerId2 + ".name");
 										
 										int weiter = 0;
 										for (Player p3 : Bukkit.getServer().getOnlinePlayers()) {

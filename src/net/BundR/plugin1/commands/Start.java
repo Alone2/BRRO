@@ -9,11 +9,13 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import net.BundR.plugin1.getPlayerConfigId;
 import net.BundR.plugin1.plugin1;
+import net.BundR.plugin1.specialConfig;
 
 public class Start implements CommandExecutor {
 	
@@ -32,14 +34,17 @@ public class Start implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
+		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		
 		if(sender.isOp()) {
 			
-			if (plugin.getConfig().getInt("start") == 1) {
+			if (cfg2.getInt("start") == 1) {
 				sender.sendMessage(ChatColor.RED + plugin.getConfig().getString("name") + " hat schon begonnen!");
 				return false;
 			}
 		
-			if (plugin.getConfig().getInt("WieViele") / 2 != plugin.getConfig().getInt("team")) {
+			if (cfg2.getInt("WieViele") / 2 != cfg2.getInt("team")) {
 				for (Player p2 : Bukkit.getServer().getOnlinePlayers()) {
 					p2.sendMessage(ChatColor.RED + "Es sind noch nicht alle in einem Team! " + plugin.getConfig().getString("name") + " kann somit noch nicht gestartet werden!");
 				}
@@ -50,12 +55,12 @@ public class Start implements CommandExecutor {
 			
 				p2.setGameMode(GameMode.SURVIVAL);
 			
-				PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p2.getUniqueId()), plugin);	
+				PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p2.getUniqueId()));	
 			
 				Location tp = p2.getLocation();
-				tp.setX(plugin.getConfig().getDouble("Player"+ PlayerId + ".spawnpoint.X"));
-				tp.setY(plugin.getConfig().getDouble("Player"+ PlayerId + ".spawnpoint.Y"));
-				tp.setZ(plugin.getConfig().getDouble("Player"+ PlayerId + ".spawnpoint.Z"));
+				tp.setX(cfg.getDouble("Player"+ PlayerId + ".spawnpoint.X"));
+				tp.setY(cfg.getDouble("Player"+ PlayerId + ".spawnpoint.Y"));
+				tp.setZ(cfg.getDouble("Player"+ PlayerId + ".spawnpoint.Z"));
 		
 				p2.teleport(tp);
 				//p2.sendMessage(String.valueOf(tp));
@@ -71,19 +76,20 @@ public class Start implements CommandExecutor {
 						
 						p2.sendTitle(ChatColor.RED + String.valueOf(Zehn),ChatColor.RED + "LET'S GO!", 20, 80, 20);
 						p2.playSound(p2.getLocation(), Sound.ENTITY_PLAYER_LEVELUP , 3.0F, 0.5F);
-						plugin.getConfig().set("start", 1);
+						cfg2.set("start", 1);
 						for (int i = 0; i < 8; i++) { 
 							int e = i + 1; 
-							plugin.getConfig().set("Player" + String.valueOf(e) + ".schutz", 1); 
+							cfg.set("Player" + String.valueOf(e) + ".schutz", 1); 
 						}
-						plugin.saveConfig();
+						specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
+						specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
 						
-						PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p2.getUniqueId()), plugin);
+						PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p2.getUniqueId()));
 						
 						Location tp = p2.getLocation();
-						tp.setX(plugin.getConfig().getDouble("Player"+ PlayerId + ".spawnpoint.X"));
-						tp.setY(plugin.getConfig().getDouble("Player"+ PlayerId + ".spawnpoint.Y") - 1);
-						tp.setZ(plugin.getConfig().getDouble("Player"+ PlayerId + ".spawnpoint.Z"));
+						tp.setX(cfg.getDouble("Player"+ PlayerId + ".spawnpoint.X"));
+						tp.setY(cfg.getDouble("Player"+ PlayerId + ".spawnpoint.Y") - 1);
+						tp.setZ(cfg.getDouble("Player"+ PlayerId + ".spawnpoint.Z"));
 						
 						tp.getBlock().setType(Material.AIR);
 						
@@ -146,9 +152,9 @@ public class Start implements CommandExecutor {
 										
 										for (int i = 0; i < 8; i++) { 
 											int e = i + 1; 
-											plugin.getConfig().set("Player" + String.valueOf(e) + ".schutz", 0); 
+											cfg.set("Player" + String.valueOf(e) + ".schutz", 0); 
 										}
-										plugin.saveConfig();
+										specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
 										
 									}
 								} else {

@@ -5,27 +5,26 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import net.BundR.plugin1.getPlayerConfigId;
-import net.BundR.plugin1.plugin1;
+import net.BundR.plugin1.specialConfig;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 
 public class Team  implements CommandExecutor {
 	
-	private plugin1 plugin;
-
-	public Team(plugin1 pl) {
-		plugin = pl;
-	}
 	String PlayerId = "Bug";
 	String PlayerId2 = "Bug";
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		
+		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
 		
 		if (!(sender instanceof Player)) {
 			sender.sendMessage("Du must ein Spieler sein um dies nutzen zu können!");
@@ -34,9 +33,9 @@ public class Team  implements CommandExecutor {
 		
 		Player p = (Player) sender;
 		
-		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()), plugin);
+		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
 		
-		int team = plugin.getConfig().getInt("Player" + PlayerId + ".team");
+		int team = cfg.getInt("Player" + PlayerId + ".team");
 		if (team == 1) {
 			p.sendMessage(ChatColor.RED + "Du bist bereits in einem Team!");
 			return false;
@@ -75,9 +74,9 @@ public class Team  implements CommandExecutor {
 				
 				Player p4 = Bukkit.getServer().getPlayer(args[1]);
 				
-				PlayerId2 = getPlayerConfigId.fromUUID(String.valueOf(p4.getUniqueId()), plugin);
+				PlayerId2 = getPlayerConfigId.fromUUID(String.valueOf(p4.getUniqueId()));
 				
-				Player p5 = Bukkit.getServer().getPlayer(plugin.getConfig().getString("Player" + PlayerId2 + ".g-teamm8"));
+				Player p5 = Bukkit.getServer().getPlayer(cfg.getString("Player" + PlayerId2 + ".g-teamm8"));
 				
 				if (!(p5.getName().equals(p.getName()))) {
 					p.sendMessage(ChatColor.RED + "Du hast keine Team Anfrage von "  + ChatColor.DARK_RED + args[1] + ChatColor.RED + " erhalten!");
@@ -87,21 +86,20 @@ public class Team  implements CommandExecutor {
 				p.sendMessage(ChatColor.DARK_AQUA  + "Du und " + p4.getName() +" sind jetzt ein Team!");
 				p4.sendMessage(ChatColor.DARK_AQUA + "Du und " + p.getName() + " sind jetzt ein Team!");
 				
-				plugin.getConfig().set("team", plugin.getConfig().getInt("team") + 1);
-				plugin.saveConfig();
+				cfg2.set("team", cfg2.getInt("team") + 1);
+				specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
 				
-				plugin.getConfig().set("Player" + PlayerId + ".teamm8", PlayerId2);
-				plugin.getConfig().set("Player" + PlayerId2 + ".teamm8", PlayerId);
+				cfg.set("Player" + PlayerId + ".teamm8", PlayerId2);
+				cfg.set("Player" + PlayerId2 + ".teamm8", PlayerId);
 				
-				plugin.getConfig().set("team" + plugin.getConfig().getInt("team") + ".player1", PlayerId );
-				plugin.getConfig().set("team" + plugin.getConfig().getInt("team") + ".player2", PlayerId2 );
+				cfg.set("team" + cfg2.getInt("team") + ".player1", PlayerId );
+				cfg.set("team" + cfg2.getInt("team") + ".player2", PlayerId2 );
+								
+				cfg.set("Player" + PlayerId + ".team", 1);
+				cfg.set("Player" + PlayerId2 + ".team", 1);
 				
-				//plugin.getConfig().set("Player" + PlayerId + ".teamm8name", plugin.getConfig().get("Player" + PlayerId2 + ".name"));
-				//plugin.getConfig().set("Player" + PlayerId2 + ".teamm8name", plugin.getConfig().get("Player" + PlayerId + ".name"));
-				
-				plugin.getConfig().set("Player" + PlayerId + ".team", 1);
-				plugin.getConfig().set("Player" + PlayerId2 + ".team", 1);
-				plugin.saveConfig();
+				specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
+				specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
 				
 				return false;
 				
@@ -111,9 +109,9 @@ public class Team  implements CommandExecutor {
 				
 				Player p6 = Bukkit.getServer().getPlayer(args[1]);
 				
-				PlayerId2 = getPlayerConfigId.fromUUID(String.valueOf(p6.getUniqueId()), plugin);
+				PlayerId2 = getPlayerConfigId.fromUUID(String.valueOf(p6.getUniqueId()));
 				
-				Player p7 = Bukkit.getServer().getPlayer(plugin.getConfig().getString("Player" + PlayerId2 + ".g-teamm8"));
+				Player p7 = Bukkit.getServer().getPlayer(cfg.getString("Player" + PlayerId2 + ".g-teamm8"));
 				
 				if (!(p7.getName().equals(p.getName()))) {
 					p.sendMessage(ChatColor.RED + "Du hast keine Team Anfrage von "  + ChatColor.DARK_RED + args[1] + ChatColor.RED + " erhalten!");
@@ -147,8 +145,10 @@ public class Team  implements CommandExecutor {
 						((CraftPlayer)playerother).getHandle().playerConnection.sendPacket(chat3);
 			
 						p.sendMessage(ChatColor.DARK_AQUA + "Du hast eine Team Anfrage an " + args[0] + " geschickt");
-						plugin.getConfig().set("Player" + PlayerId + ".g-teamm8", args[0]);
-						plugin.saveConfig();
+						cfg.set("Player" + PlayerId + ".g-teamm8", args[0]);
+						
+						specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
+						specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
 				
 					} else {
 				

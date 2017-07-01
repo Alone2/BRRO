@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,6 +13,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import net.BundR.plugin1.getPlayerConfigId;
 import net.BundR.plugin1.plugin1;
+import net.BundR.plugin1.specialConfig;
 
 public class PlayerDeath implements Listener {
 	
@@ -24,6 +26,9 @@ public class PlayerDeath implements Listener {
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		
+		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		
 		Player p = (Player) event.getEntity();
 		
 		Location loc = p.getLocation();
@@ -32,31 +37,26 @@ public class PlayerDeath implements Listener {
 		
 		String PlayerId = "BUG";
 		
-		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()), plugin);
+		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
 
-		plugin.getConfig().set("Player" + PlayerId + ".alive", 0);
-		plugin.getConfig().set("Worldborder", plugin.getConfig().getInt("Worldborder") + 1);
-		plugin.saveConfig();
+		cfg.set("Player" + PlayerId + ".alive", 0);
+		cfg2.set("Worldborder", plugin.getConfig().getInt("Worldborder") + 1);
+		specialConfig.saveConfig(cfg, "plugins//alone1//data.yml"); 
+		specialConfig.saveConfig(cfg2, "plugins//alone1//player.yml");
 		
-		/*for (int i = 0; i < plugin.getConfig().getInt("team"); i++) { 
-			if() {
-				
-			}
-		}*/
-		
-		if(plugin.getConfig().getInt("startWorldborderLoop") == 1) {
+		if(cfg2.getInt("startWorldborderLoop") == 1) {
 			
-			plugin.getConfig().set("startWorldborderLoop", 0);
+			cfg2.set("startWorldborderLoop", 0);
 			
 			plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 
 				@Override
 				public void run() {
 				
-					if(plugin.getConfig().getInt("Worldborder") >= 1) {
+					if(cfg2.getInt("Worldborder") >= 1) {
 						
-						plugin.getConfig().set("Worldborder", plugin.getConfig().getInt("Worldborder") - 1);
-						plugin.saveConfig();
+						cfg2.set("Worldborder", plugin.getConfig().getInt("Worldborder") - 1);
+						specialConfig.saveConfig(cfg, "plugins//alone1//data.yml"); 
 						
 						w.getWorldBorder().setSize(w.getWorldBorder().getSize() - plugin.getConfig().getInt("defaultWorldborder.schrumpfen"), 120);
 						
@@ -92,22 +92,23 @@ public class PlayerDeath implements Listener {
 		int alive = 0;
 		int teamalive = 0;
 		
-		for (int i = 0; i < plugin.getConfig().getInt("team"); i++) {
-			String playerID1 = plugin.getConfig().getString("team"+ String.valueOf(i+1) + ".player1");
-			String playerID2 = plugin.getConfig().getString("team"+ String.valueOf(i+1) + ".player2");
+		for (int i = 0; i < cfg2.getInt("team"); i++) {
 			
-			if(plugin.getConfig().getString("Player" + playerID1 + ".alive").equals("1")) {
+			String playerID1 = cfg.getString("team"+ String.valueOf(i+1) + ".player1");
+			String playerID2 = cfg.getString("team"+ String.valueOf(i+1) + ".player2");
+			
+			if(cfg.getString("Player" + playerID1 + ".alive").equals("1")) {
 				
 				alive = alive + 1;
 				
-				if(plugin.getConfig().getString("Player" + playerID2 + ".alive").equals("1")) {
+				if(cfg.getString("Player" + playerID2 + ".alive").equals("1")) {
 					
 					teamalive = teamalive + 1;
 					
 				}
 			}
 			
-			if(plugin.getConfig().getString("Player" + playerID2 + ".alive").equals("1")) {
+			if(cfg.getString("Player" + playerID2 + ".alive").equals("1")) {
 				
 				alive = alive + 1;
 				

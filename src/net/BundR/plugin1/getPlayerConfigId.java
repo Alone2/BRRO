@@ -1,13 +1,17 @@
 package net.BundR.plugin1;
 
+import org.bukkit.configuration.file.FileConfiguration;
+
 public class getPlayerConfigId {
 	
-	public static String fromName(String Name, plugin1 pl) {
+	public static String fromName(String Name) {
+		
+		FileConfiguration cfg = specialConfig.config("plugins//alone1//players.yml");
 		
 		String PlayerId = "BUG";
 		for (int i = 0; i < 8; i++) { 
 			int e = i + 1; 
-			String Config = String.valueOf(pl.getConfig().getString("Player" + String.valueOf(e) + ".name")); 
+			String Config = String.valueOf(cfg.getString("Player" + String.valueOf(e) + ".name")); 
 
 			if (Config.equals(Name)) {
 
@@ -22,12 +26,14 @@ public class getPlayerConfigId {
 	}
 	
 	
-	public static String fromUUID(String UUID, plugin1 pl) {
+	public static String fromUUID(String UUID) {
+		
+		FileConfiguration cfg = specialConfig.config("plugins//alone1//players.yml");
 		
 		String PlayerId = "BUG";
 		for (int i = 0; i < 8; i++) { 
 			int e = i + 1; 
-			String Config = String.valueOf(pl.getConfig().getString("Player" + String.valueOf(e) + ".UUID")); 
+			String Config = String.valueOf(cfg.getString("Player" + String.valueOf(e) + ".UUID")); 
 
 			if (Config.equals(UUID)) {
 

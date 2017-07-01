@@ -4,10 +4,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import net.BundR.plugin1.getPlayerConfigId;
 import net.BundR.plugin1.plugin1;
+import net.BundR.plugin1.specialConfig;
 
 
 public class time implements CommandExecutor {
@@ -20,7 +22,8 @@ public class time implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
-
+		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		
 		//reset
 		if (sender.isOp()) {
 			if (args.length == 2) {
@@ -29,8 +32,8 @@ public class time implements CommandExecutor {
 					for (int i = 0; i < 8; i++) {
 						
 						Integer time = Integer.valueOf(args[1]);
-						plugin.getConfig().set("Player" + String.valueOf(i + 1) + ".time", time);
-						plugin.saveConfig();
+						cfg.set("Player" + String.valueOf(i + 1) + ".time", time);
+						specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
 						
 					} 
 					
@@ -45,13 +48,12 @@ public class time implements CommandExecutor {
 		
 			if (args.length == 3) {
 				if (args[0].equals(args[0])) {
-					String PlayerId = "BUG";
-					
-					PlayerId = getPlayerConfigId.fromUUID(args[2], plugin);
+				
+					String PlayerId = getPlayerConfigId.fromName(args[2]);
 					
 					Integer time = Integer.valueOf(args[1]);
-					plugin.getConfig().set("Player" + PlayerId + ".time", time);
-					plugin.saveConfig();
+					cfg.set("Player" + PlayerId + ".time", time);
+					specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
 					
 					sender.sendMessage(args[2] + " wurde zurückgesetzt");
 					
@@ -66,8 +68,8 @@ public class time implements CommandExecutor {
 					for (int i = 0; i < 8; i++) {
 						
 						int time = plugin.getConfig().getInt("NormalTime");
-						plugin.getConfig().set("Player" + String.valueOf(i + 1) + ".time", time);
-						plugin.saveConfig();
+						cfg.set("Player" + String.valueOf(i + 1) + ".time", time);
+						specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
 						
 					} 
 					
@@ -88,9 +90,9 @@ public class time implements CommandExecutor {
 		
 		Player p = (Player) sender;
 		
-		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()), plugin);
+		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
 		
-		int Zeit = plugin.getConfig().getInt("Player" + PlayerId + ".time");
+		int Zeit = cfg.getInt("Player" + PlayerId + ".time");
 		int h = 0;
 		int Min = 0;
 		int Sek = 0;
