@@ -1,21 +1,12 @@
 # Alone1 Plugin by Alone
 
-# name = Name des Projektes
-# NormalTime = Sekunden auf dem Server sein | normal: 20min
-# SchutzTime = Zeit der Schutzzeit (Es werden immer +5 Sek. gerechnet)
-# FriendlyFire = Ob man den Teamkollegen schlagen darf
-# defaultWorldborder.groesse = Die grösse der Worldborder am Anfang
-# defaultWorldborder.schrumpfen = Wie viel die Grösse der Worldborder pro Tod eines Spielers verkleinert wird.
-# Wieviele = Wie viele Spielen waren auf dem Server | Nicht aendern!
-# high = Diese Zahl traegt dazu bei, dass das Plugin ueberhaupt funktioniert... | Also NICHT AENDERN!
-# startWorldborderLoop = kann der Loop gestartet werden?? | Nicht aendern!
-# Worldborder = Wie viel wird die Border nach hinten verschoben | Nicht aendern!
-# start = Hat das Spiel schon begonnen?| Nicht aendern!
-# team = Wie viele Teams gibt es | Nicht aendern!
-# build = Wurde bereits eine Spawn Plattform gebaut? | Nicht aendern!
-# Mitte = Zentum | Nicht aendern!
-# Player[Zahl] = Viele wichtige Informationen zu den Spielern | Nicht aendern!
-# team[Zahl] = Wichtige Informationen zu den Teams | Nicht aendern!
+# name = Name des Projektes | normal: VARO
+# NormalTime = Sekunden auf dem Server sein | normal: 1200 (20 Minuten)
+# SchutzTime = Zeit der Schutzzeit (Es werden immer +5 Sek. gerechnet, da man sonst in diesen 5 Sek sterben würde[Fallschaden]) | normal = 55 (+5 Sek = 1 Minute)
+# FriendlyFire = Ob man den Teamkollegen schlagen darf (0 = Nein | 1 = Ja) | normal: 0
+# defaultWorldborder.groesse = Die Groesse der Worldborder am Anfang (in Blöcken gemessen) | normal: 1000
+# defaultWorldborder.schrumpfen = Um wie viel Blöcke sich die Groesse der Worldborder pro Tod eines Spielers verkleinert. | normal: 75
+# noKickZone = Wenn ein gegnerischer Spieler in deisem Umkreis ist, kann man nicht gekickt werden. | normal: 50
 
 name: VARO
 NormalTime: 1200
@@ -23,3 +14,4 @@ SchutzTime: 55
 FriendlyFire: 0
 defaultWorldborder.groesse: 1000
 defaultWorldborder.schrumpfen: 75
+noKickZone: 50

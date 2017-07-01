@@ -94,7 +94,7 @@ public class PlayerJoin implements Listener {
 			cfg.set("Player" + String.valueOf(WieViele + 1) + ".time", time);
 			cfg2.set("WieViele", WieViele + 1);
 			specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
-			specialConfig.saveConfig(cfg, "plugins//alone1//data.yml");
+			specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml");
 			
 			if(cfg2.getInt("build") == 1) {
 				Location tp = p.getLocation();
@@ -110,25 +110,23 @@ public class PlayerJoin implements Listener {
 		
 		int high = cfg2.getInt("high") + 1;
 		cfg2.set("high", high);
-		specialConfig.saveConfig(cfg, "plugins//alone1//data.yml");
+		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml");
 		
 		String[] on_p;
 		
-		on_p = new String[high+1];
+		on_p = new String[high + 1];
 				
 		on_p[high] = "0";
 		
-		
 		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
-		
 		
 		int alive = cfg.getInt("Player" + PlayerId + ".alive");
 		int time_p = cfg.getInt("Player" + PlayerId + ".time");
 		
 		if (alive == 0) {
 			
-			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 200));
-			p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 200));
+			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 255));
+			p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 255));
 
 			loop1 = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 
@@ -146,8 +144,8 @@ public class PlayerJoin implements Listener {
 		
 		if (time_p < 1) {
 			
-			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 200));
-			p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 200));
+			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 255));
+			p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 255));
 
 			loop1 = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 
@@ -163,6 +161,7 @@ public class PlayerJoin implements Listener {
 			}, (20 * 1L), 20 * 1);
 		}
 		
+		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
 		cfg.set("Player" + PlayerId + ".name", p.getName());
 		specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
 		
@@ -170,26 +169,29 @@ public class PlayerJoin implements Listener {
 			@Override
 			public void run() {
 				
+				//int time_p = cfg.getInt("Player" + PlayerId + ".time");			
+				//p.sendMessage(String.valueOf(time_p - 1) + "-1");
+				
 				if (on_p[high] == "0"){
 					
+					//p.sendMessage(String.valueOf(time_p - 1) + "-2");
 					
-					
-						
-					//normal UUID kein Cracked
-
 					PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
-						
-
-					//debug
-					//int HowOnline = Bukkit.getOnlinePlayers().size();
-				
+					
+					FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+					FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+					
 					if (cfg2.getInt("start") == 1) {
+							
+						//p.sendMessage(String.valueOf(time_p - 1) + "-3");
 						
 						if (p.isOnline()){
 					
 							int time_p = cfg.getInt("Player" + PlayerId + ".time");
 							cfg.set("Player" + PlayerId + ".time", time_p - 1);
 							specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+							
+							//p.sendMessage(String.valueOf(time_p - 1) + "-4");
 						
 							if (time_p == 120) {
 								p.sendMessage(ChatColor.RED + "Du hast nur noch 2 Minuten Zeit!");	
@@ -230,7 +232,7 @@ public class PlayerJoin implements Listener {
 										
 										int weiter = 0;
 										for (Player p3 : Bukkit.getServer().getOnlinePlayers()) {
-											if (teamm8UUID == p3.getName()) {
+											if (teamm8UUID.equals(String.valueOf(p3.getName()))) {
 												weiter = 1;
 											}
 										}
@@ -240,7 +242,7 @@ public class PlayerJoin implements Listener {
 										if(p != p2) {
 											
 												if (p2 != teamm8) {
-													if (p.getLocation().distance(p2.getLocation()) < 50) {
+													if (p.getLocation().distance(p2.getLocation()) < plugin.getConfig().getDouble("noKickZone")) {
 											
 														notkick = notkick + 1;
 											
@@ -252,7 +254,7 @@ public class PlayerJoin implements Listener {
 										
 										} else {
 											if(p != p2) {
-												if (p.getLocation().distance(p2.getLocation()) < 50) {
+												if (p.getLocation().distance(p2.getLocation()) < plugin.getConfig().getDouble("noKickZone")) {
 												
 													notkick = notkick + 1;
 										
@@ -263,7 +265,7 @@ public class PlayerJoin implements Listener {
 										
 										if(p != p2) {
 											
-											if (p.getLocation().distance(p2.getLocation()) < 50) {
+											if (p.getLocation().distance(p2.getLocation()) < plugin.getConfig().getDouble("noKickZone")) {
 												
 												notkick = notkick + 1;
 											
@@ -285,7 +287,7 @@ public class PlayerJoin implements Listener {
 								
 							}
 							// debug
-							// p.sendMessage(String.valueOf(time_p - 1));			
+							//p.sendMessage(String.valueOf(time_p - 1));			
 							// p.sendMessage(String.valueOf(w.getWorldBorder().getSize()/2));
 							// p.sendMessage("X= " + String.valueOf(lineX.distance(loc)));
 							// p.sendMessage("Z= " + String.valueOf(lineZ.distance(loc)));

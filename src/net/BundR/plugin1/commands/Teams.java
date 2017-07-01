@@ -16,11 +16,12 @@ public class Teams  implements CommandExecutor {
 	public boolean onCommand(CommandSender p, Command command, String label, String[] args) {
 		
 		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
 		
 		p.sendMessage(ChatColor.DARK_AQUA + "Teams:");
 		p.sendMessage("");
 		
-		for (int i = 0; i < cfg.getInt("team"); i++) { 
+		for (int i = 0; i < cfg2.getInt("team"); i++) { 
 			
 			int e = i + 1; 
 			

@@ -41,8 +41,8 @@ public class PlayerDeath implements Listener {
 
 		cfg.set("Player" + PlayerId + ".alive", 0);
 		cfg2.set("Worldborder", plugin.getConfig().getInt("Worldborder") + 1);
-		specialConfig.saveConfig(cfg, "plugins//alone1//data.yml"); 
-		specialConfig.saveConfig(cfg2, "plugins//alone1//player.yml");
+		specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml");
 		
 		if(cfg2.getInt("startWorldborderLoop") == 1) {
 			
@@ -52,11 +52,13 @@ public class PlayerDeath implements Listener {
 
 				@Override
 				public void run() {
+					
+					FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
 				
 					if(cfg2.getInt("Worldborder") >= 1) {
 						
 						cfg2.set("Worldborder", plugin.getConfig().getInt("Worldborder") - 1);
-						specialConfig.saveConfig(cfg, "plugins//alone1//data.yml"); 
+						specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
 						
 						w.getWorldBorder().setSize(w.getWorldBorder().getSize() - plugin.getConfig().getInt("defaultWorldborder.schrumpfen"), 120);
 						

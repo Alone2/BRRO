@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import org.bukkit.plugin.PluginManager;
@@ -31,9 +32,11 @@ public class plugin1 extends JavaPlugin {
 		registerCommands();
 		registerEvents();
 		registerConfig();
-		this.getConfig().set("startWorldborderLoop", 1);
-		this.getConfig().set("high", 0);
-		this.saveConfig();
+		
+		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		cfg2.set("startWorldborderLoop", 1);
+		cfg2.set("high", 0);
+		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
 
 		//logger.info(pdffile.getName() + " wurde gestartet! (Version: " + pdffile.getVersion() + ")");
 	}
