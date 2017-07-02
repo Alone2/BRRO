@@ -1,5 +1,5 @@
 main: net.BundR.plugin1.plugin1
-version: 1.0.2 BETA
+version: 1.0.2
 name: alone1
 author: Alone
 website: http://www.BundR.net
@@ -8,11 +8,11 @@ commands:
   build:
     description: Spawn wird bei dir erschaffen
   zeit:
-    description: Wie lange darf ich noch auf dem Server sein?
+    description: Zeigt an wie lange man noch auf dem Server sein darf
   start:
-    description: Startet alles.
+    description: Startet alles
   alive:
-    description: Wer ist noch am leben?
+    description: Zeigt an wer alles noch am Leben ist
   team:
     description: Command um den Team Kollegen zu bestimmen. /team [Spieler]
   teams:
