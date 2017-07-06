@@ -142,6 +142,25 @@ public class build implements CommandExecutor {
 			cfg.set("Player" + i  + ".spawnpoint.X", Spawnpoint.getX());
 			cfg.set("Player" + i  + ".spawnpoint.Y", Spawnpoint.getY());
 			cfg.set("Player" + i  + ".spawnpoint.Z", Spawnpoint.getZ());
+			
+			if(i % 2 == 0) {
+				
+				int team = i/2;
+				
+				cfg.set("team" + String.valueOf(team) + ".player2_spawnpoint.X", Spawnpoint.getX());
+				cfg.set("team" + String.valueOf(team) + ".player2_spawnpoint.Y", Spawnpoint.getY());
+				cfg.set("team" + String.valueOf(team) + ".player2_spawnpoint.Z", Spawnpoint.getZ());
+				
+			} else {
+				
+				int team = i/2 + 1/2;
+				
+				cfg.set("team" + String.valueOf(team) + ".player1_spawnpoint.X", Spawnpoint.getX());
+				cfg.set("team" + String.valueOf(team) + ".player1_spawnpoint.Y", Spawnpoint.getY());
+				cfg.set("team" + String.valueOf(team) + ".player1_spawnpoint.Z", Spawnpoint.getZ());
+				
+			}
+			
 			specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
 			
 			// block2
