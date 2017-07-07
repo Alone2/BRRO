@@ -44,22 +44,28 @@ public class build implements CommandExecutor {
 		cfg2.set("Mitte.Z", player.getLocation().getBlockZ());
 		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 		
 		
-		Location StandOrtArt = player.getLocation();
+		int MitteX = player.getLocation().getBlockX();
+		int MitteY = player.getLocation().getBlockY();
+		int MitteZ = player.getLocation().getBlockZ();
 		
-		StandOrtArt.setX(cfg2.getInt("Mitte.X")  + 0.5);
-		StandOrtArt.setY(cfg2.getInt("Mitte.Y"));
-		StandOrtArt.setZ(cfg2.getInt("Mitte.Z") + 0.5);
+		Location StandOrtArt = player.getLocation();	
 		
-		player.teleport(StandOrtArt);	
+		StandOrtArt.setX(MitteX  + 0.5);
+		StandOrtArt.setY(MitteY);
+		StandOrtArt.setZ(MitteZ + 0.5);
+		
+		player.teleport(StandOrtArt);
+		
+		//player.sendMessage(String.valueOf(StandOrtArt));
 		
 		int hoehe = 100;
 		for (int i = 256; i > 0; i--) {
 			
 			Location StandOrtArt2 = player.getLocation();
 			
-			StandOrtArt2.setX(cfg2.getInt("Mitte.X")  + 0.5);
+			StandOrtArt2.setX(MitteX  + 0.5);
 			StandOrtArt2.setY(i);
-			StandOrtArt2.setZ(cfg2.getInt("Mitte.Z") + 0.5);
+			StandOrtArt2.setZ(MitteY + 0.5);
 			
 			if (StandOrtArt2.getBlock().getType() != Material.AIR) {
 				hoehe = i+1;
@@ -68,7 +74,8 @@ public class build implements CommandExecutor {
 			
 		}
 		
-		w.setSpawnLocation(cfg2.getInt("Mitte.X"), hoehe, cfg2.getInt("Mitte.Z"));
+		w.setSpawnLocation(MitteX, hoehe, MitteY);
+		
 		// PlayerSpawnKapsel
 		Material Blockoben = Material.LOG;
 		Material Blockunten = Material.PURPUR_SLAB;
@@ -147,13 +154,20 @@ public class build implements CommandExecutor {
 				
 				int team = i/2;
 				
+				//player.sendMessage(String.valueOf(i) + ": " + String.valueOf(team));
+				
 				cfg.set("team" + String.valueOf(team) + ".player2_spawnpoint.X", Spawnpoint.getX());
 				cfg.set("team" + String.valueOf(team) + ".player2_spawnpoint.Y", Spawnpoint.getY());
 				cfg.set("team" + String.valueOf(team) + ".player2_spawnpoint.Z", Spawnpoint.getZ());
 				
 			} else {
 				
-				int team = i/2 + 1/2;
+				double team1 = i/2 + 0.5;
+				double team2 = team1 + 0.5;
+				
+				int team = (int) team2;
+				
+				//player.sendMessage(String.valueOf(i) + ": " + String.valueOf(team));
 				
 				cfg.set("team" + String.valueOf(team) + ".player1_spawnpoint.X", Spawnpoint.getX());
 				cfg.set("team" + String.valueOf(team) + ".player1_spawnpoint.Y", Spawnpoint.getY());

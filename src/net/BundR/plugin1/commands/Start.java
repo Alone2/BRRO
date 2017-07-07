@@ -56,11 +56,13 @@ public class Start implements CommandExecutor {
 				p2.setGameMode(GameMode.SURVIVAL);
 			
 				PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p2.getUniqueId()));	
+				String Team = getPlayerConfigId.getTeam(PlayerId);
 			
 				Location tp = p2.getLocation();
-				tp.setX(cfg.getDouble("Player"+ PlayerId + ".spawnpoint.X"));
-				tp.setY(cfg.getDouble("Player"+ PlayerId + ".spawnpoint.Y"));
-				tp.setZ(cfg.getDouble("Player"+ PlayerId + ".spawnpoint.Z"));
+				
+				tp.setX(cfg.getDouble("team"+ Team + "_spawnpoint.X"));
+				tp.setY(cfg.getDouble("team"+ Team + "_spawnpoint.Y"));
+				tp.setZ(cfg.getDouble("team"+ Team + "_spawnpoint.Z"));
 		
 				p2.teleport(tp);
 				//p2.sendMessage(String.valueOf(tp));
