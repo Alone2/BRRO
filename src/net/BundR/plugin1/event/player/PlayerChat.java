@@ -15,7 +15,7 @@ public class PlayerChat implements Listener {
 		String message = event.getMessage().toLowerCase();
 		String message2 = event.getMessage();
 
-		if (message.contains("br")) {
+		if (message.contains("br isch cool")) {
 
 			event.setCancelled(true);
 
