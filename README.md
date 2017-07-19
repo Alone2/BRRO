@@ -1,4 +1,4 @@
-# alone1Plugin
+# BRRO
 Varo Plugin für Minecraft Spigot/Bukkit
 
 Download & Infos:
