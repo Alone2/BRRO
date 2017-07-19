@@ -22,7 +22,7 @@ public class PlayerDamageFromPlayer implements Listener {
 	@EventHandler
 	public void onPlayerDamageFromPlayer(EntityDamageByEntityEvent event) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
 		
 		Entity e1 = event.getDamager();
 		Entity e2 =event.getEntity();

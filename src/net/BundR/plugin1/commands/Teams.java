@@ -15,8 +15,8 @@ public class Teams  implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender p, Command command, String label, String[] args) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
-		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//BRRO//data.yml");
 		
 		p.sendMessage(ChatColor.DARK_AQUA + "Teams:");
 		p.sendMessage("");

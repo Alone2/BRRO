@@ -34,8 +34,8 @@ public class Start implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
-		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//BRRO//data.yml");
 		
 		if(sender.isOp()) {
 			
@@ -83,8 +83,8 @@ public class Start implements CommandExecutor {
 							int e = i + 1; 
 							cfg.set("Player" + String.valueOf(e) + ".schutz", 1); 
 						}
-						specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
-						specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+						specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml"); 
+						specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml"); 
 						
 						PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p2.getUniqueId()));
 						
@@ -156,7 +156,7 @@ public class Start implements CommandExecutor {
 											int e = i + 1; 
 											cfg.set("Player" + String.valueOf(e) + ".schutz", 0); 
 										}
-										specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+										specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml"); 
 										
 									}
 								} else {

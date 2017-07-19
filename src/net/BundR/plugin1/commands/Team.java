@@ -23,8 +23,8 @@ public class Team  implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
-		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//BRRO//data.yml");
 		
 		if (!(sender instanceof Player)) {
 			sender.sendMessage("Du must ein Spieler sein um dies nutzen zu können!");
@@ -87,7 +87,7 @@ public class Team  implements CommandExecutor {
 				p4.sendMessage(ChatColor.DARK_AQUA + "Du und " + p.getName() + " sind jetzt ein Team!");
 				
 				cfg2.set("team", cfg2.getInt("team") + 1);
-				specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
+				specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml"); 
 				
 				cfg.set("Player" + PlayerId + ".teamm8", PlayerId2);
 				cfg.set("Player" + PlayerId2 + ".teamm8", PlayerId);
@@ -98,8 +98,8 @@ public class Team  implements CommandExecutor {
 				cfg.set("Player" + PlayerId + ".team", 1);
 				cfg.set("Player" + PlayerId2 + ".team", 1);
 				
-				specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
-				specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
+				specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml"); 
+				specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml");
 				
 				return false;
 				
@@ -147,8 +147,8 @@ public class Team  implements CommandExecutor {
 						p.sendMessage(ChatColor.DARK_AQUA + "Du hast eine Team Anfrage an " + args[0] + " geschickt");
 						cfg.set("Player" + PlayerId + ".g-teamm8", args[0]);
 						
-						specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
-						specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
+						specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml"); 
+						specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml");
 				
 					} else {
 				

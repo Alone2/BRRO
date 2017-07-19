@@ -17,7 +17,7 @@ public class Alive implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
 		
 		if (args.length == 2) {
 			if (sender.isOp()) {
@@ -27,7 +27,7 @@ public class Alive implements CommandExecutor {
 					
 					cfg.set("Player" + PlayerId + ".alive", 1); 
 					cfg.set("Player" + PlayerId + ".aliveNew", 1); 
-					specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+					specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml"); 
 				
 					sender.sendMessage(ChatColor.RED + args[1] +" wurde wiederbelebt!");
 				

@@ -26,8 +26,8 @@ public class PlayerDeath implements Listener {
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
-		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//BRRO//data.yml");
 		
 		Player p = (Player) event.getEntity();
 		
@@ -41,25 +41,25 @@ public class PlayerDeath implements Listener {
 
 		cfg.set("Player" + PlayerId + ".alive", 0);
 		cfg2.set("Worldborder", cfg2.getInt("Worldborder") + 1);
-		specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
-		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml");
+		specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml"); 
+		specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml");
 		
 		if(cfg2.getInt("startWorldborderLoop") == 1) {
 			
 			cfg2.set("startWorldborderLoop", 0);
-			specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml");
+			specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml");
 			
 			plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 
 				@Override
 				public void run() {
 					
-					FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+					FileConfiguration cfg2 = specialConfig.config("plugins//BRRO//data.yml");
 				
 					if(cfg2.getInt("Worldborder") >= 1) {
 						
 						cfg2.set("Worldborder", cfg2.getInt("Worldborder") - 1);
-						specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
+						specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml"); 
 						
 						w.getWorldBorder().setSize(w.getWorldBorder().getSize() - plugin.getConfig().getInt("defaultWorldborder.schrumpfen"), 120);
 						

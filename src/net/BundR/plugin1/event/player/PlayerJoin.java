@@ -35,13 +35,13 @@ public class PlayerJoin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player p = (Player) event.getPlayer();
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
-		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//BRRO//data.yml");
 		
 		//cfg.set("Test", cfg.getInt("Test") + 1);
 			
-		//specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
-		//specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+		//specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml"); 
+		//specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml"); 
 
 		
 		//loc
@@ -93,8 +93,8 @@ public class PlayerJoin implements Listener {
 
 			cfg.set("Player" + String.valueOf(WieViele + 1) + ".time", time);
 			cfg2.set("WieViele", WieViele + 1);
-			specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
-			specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml");
+			specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml"); 
+			specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml");
 			
 			if(cfg2.getInt("build") == 1) {
 				Location tp = p.getLocation();
@@ -110,7 +110,7 @@ public class PlayerJoin implements Listener {
 		
 		int high = cfg2.getInt("high") + 1;
 		cfg2.set("high", high);
-		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml");
+		specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml");
 		
 		String[] on_p;
 		
@@ -163,7 +163,7 @@ public class PlayerJoin implements Listener {
 		
 		PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
 		cfg.set("Player" + PlayerId + ".name", p.getName());
-		specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+		specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml"); 
 		
 		plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
 			@Override
@@ -178,8 +178,8 @@ public class PlayerJoin implements Listener {
 					
 					PlayerId = getPlayerConfigId.fromUUID(String.valueOf(p.getUniqueId()));
 					
-					FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
-					FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+					FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
+					FileConfiguration cfg2 = specialConfig.config("plugins//BRRO//data.yml");
 					
 					if (cfg2.getInt("start") == 1) {
 							
@@ -189,7 +189,7 @@ public class PlayerJoin implements Listener {
 					
 							int time_p = cfg.getInt("Player" + PlayerId + ".time");
 							cfg.set("Player" + PlayerId + ".time", time_p - 1);
-							specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+							specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml"); 
 							
 							//p.sendMessage(String.valueOf(time_p - 1) + "-4");
 						

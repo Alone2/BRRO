@@ -24,8 +24,8 @@ public class build implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
-		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
+		FileConfiguration cfg2 = specialConfig.config("plugins//BRRO//data.yml");
 		
 		if(sender.isOp()) {
 		if (!(sender instanceof Player)) {
@@ -42,7 +42,7 @@ public class build implements CommandExecutor {
 		cfg2.set("Mitte.X", player.getLocation().getBlockX());
 		cfg2.set("Mitte.Y", player.getLocation().getBlockY());
 		cfg2.set("Mitte.Z", player.getLocation().getBlockZ());
-		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 		
+		specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml"); 		
 		
 		int MitteX = player.getLocation().getBlockX();
 		int MitteY = player.getLocation().getBlockY();
@@ -175,7 +175,7 @@ public class build implements CommandExecutor {
 				
 			}
 			
-			specialConfig.saveConfig(cfg, "plugins//alone1//player.yml"); 
+			specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml"); 
 			
 			// block2
 			block2.setX(block2.getX() + add2 - 0);
@@ -247,7 +247,7 @@ public class build implements CommandExecutor {
 		
 		player.sendMessage("DONE");
 		cfg2.set("build", 1);
-		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
+		specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml"); 
 		
 	} else {
 		sender.sendMessage(ChatColor.RED + "Du hast die Rechte für diesen Command nicht!");

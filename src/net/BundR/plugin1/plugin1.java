@@ -26,31 +26,20 @@ import net.BundR.plugin1.event.player.PlayerJoin;
 public class plugin1 extends JavaPlugin {
 
 	public void onEnable() {
-		//PluginDescriptionFile pdffile = getDescription();
-		//Logger logger = getLogger();
-
+		
 		registerCommands();
 		registerEvents();
 		registerConfig();
-		
-		FileConfiguration cfg2 = specialConfig.config("plugins//alone1//data.yml");
-		cfg2.set("startWorldborderLoop", 1);
-		cfg2.set("high", 0);
-		specialConfig.saveConfig(cfg2, "plugins//alone1//data.yml"); 
 
-		//logger.info(pdffile.getName() + " wurde gestartet! (Version: " + pdffile.getVersion() + ")");
 	}
 
 	public void onDisable() {
-		//PluginDescriptionFile pdffile = getDescription();
-		//Logger logger = getLogger();
+
 		for (Player p2 : Bukkit.getServer().getOnlinePlayers()) {
 			
 			p2.kickPlayer(ChatColor.RED + "Der Server wird neu gestartet. Versuche wieder zu connecten.");
 		}
 		
-		this.saveConfig();
-		//logger.info(pdffile.getName() + " wurde gestoppt! (Version: " + pdffile.getVersion() + ")");
 	}
 
 	public void registerCommands() {
@@ -95,6 +84,11 @@ public class plugin1 extends JavaPlugin {
             specialf2.getParentFile().mkdirs();
             saveResource("player.yml", false);
          }
+        
+        FileConfiguration cfg2 = specialConfig.config("plugins//BRRO//data.yml");
+		cfg2.set("startWorldborderLoop", 1);
+		cfg2.set("high", 0);
+		specialConfig.saveConfig(cfg2, "plugins//BRRO//data.yml"); 
 		
          	
 	}

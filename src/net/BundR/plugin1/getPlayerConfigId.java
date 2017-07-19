@@ -6,7 +6,7 @@ public class getPlayerConfigId {
 	
 	public static String fromName(String Name) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
 		
 		String PlayerId = "BUG";
 		for (int i = 0; i < 8; i++) { 
@@ -28,7 +28,7 @@ public class getPlayerConfigId {
 	
 	public static String fromUUID(String UUID) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
 		
 		String PlayerId = "BUG";
 		for (int i = 0; i < 8; i++) { 
@@ -49,7 +49,7 @@ public class getPlayerConfigId {
 	
 	public static String getTeam(String PlayerId) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
 		
 		String Team = "BUG";
 		for (int i = 0; i < 4; i++) { 

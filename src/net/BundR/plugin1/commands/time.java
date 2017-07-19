@@ -22,7 +22,7 @@ public class time implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
-		FileConfiguration cfg = specialConfig.config("plugins//alone1//player.yml");
+		FileConfiguration cfg = specialConfig.config("plugins//BRRO//player.yml");
 		
 		//reset
 		if (sender.isOp()) {
@@ -33,7 +33,7 @@ public class time implements CommandExecutor {
 						
 						Integer time = Integer.valueOf(args[1]);
 						cfg.set("Player" + String.valueOf(i + 1) + ".time", time);
-						specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
+						specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml");
 						
 					} 
 					
@@ -53,7 +53,7 @@ public class time implements CommandExecutor {
 					
 					Integer time = Integer.valueOf(args[1]);
 					cfg.set("Player" + PlayerId + ".time", time);
-					specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
+					specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml");
 					
 					sender.sendMessage(args[2] + " wurde zurückgesetzt");
 					
@@ -69,7 +69,7 @@ public class time implements CommandExecutor {
 						
 						int time = plugin.getConfig().getInt("NormalTime");
 						cfg.set("Player" + String.valueOf(i + 1) + ".time", time);
-						specialConfig.saveConfig(cfg, "plugins//alone1//player.yml");
+						specialConfig.saveConfig(cfg, "plugins//BRRO//player.yml");
 						
 					} 
 					
